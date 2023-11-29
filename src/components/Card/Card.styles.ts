@@ -3,6 +3,15 @@ import styled, { css } from "styled-components";
 export const CardWrapper = styled.div`
   position: relative;
   perspective: 1000px;
+  width: auto;
+  height: auto;
+  aspect-ratio: 818 / 1111; /* Based on BackImg aspect ratio */
+  background: radial-gradient(
+    circle at 85.4% 50.8%,
+    rgb(14, 72, 222) 0%,
+    rgb(3, 22, 65) 74.2%
+  );
+  display: flex;
 
   .front.flipped {
     z-index: 1;
@@ -23,11 +32,17 @@ const sharedStyles = css`
   transform-style: preserve-3d;
 `;
 
+export const FrontImgWrapper = styled.div`
+  padding: 5px;
+`;
+
 export const FrontImg = styled.img<Props>`
   ${sharedStyles}
 
   z-index: ${(props) => (props.flipped ? 2 : 1)};
   transform: ${(props) => (props.flipped ? "rotate(0deg)" : "rotateY(180deg)")};
+  object-fit: contain;
+  box-sizing: border-box;
 `;
 
 export const BackImg = styled.img<Props>`
@@ -37,12 +52,8 @@ export const BackImg = styled.img<Props>`
   transform: ${(props) =>
     props.flipped ? "rotateY(180deg)" : "rotate(360deg)"};
   position: absolute;
+  width: 100%;
+  height: 100%;
   top: 0px;
   left: 0px;
 `;
-
-/* export const FlippableCardComponents = {
-  CardWrapper,
-  FrontImg,
-  BackImg,
-}; */
