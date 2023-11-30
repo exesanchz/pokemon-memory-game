@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { PokemonCard } from "../../types/CardTypes";
 import { BackImg, CardWrapper, FrontImg, FrontImgWrapper } from "./Card.styles";
-import backgroundCard from "../../assets/pokemon_back_card.png";
+import backgroundCard from "../../assets/images/pokemon_back_card.png";
 
 type Props = {
   card: PokemonCard;

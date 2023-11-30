@@ -5,6 +5,7 @@ export const CardWrapper = styled.div`
   perspective: 1000px;
   width: auto;
   height: auto;
+  max-height: 250px;
   aspect-ratio: 818 / 1111; /* Based on BackImg aspect ratio */
   background: radial-gradient(
     circle at 85.4% 50.8%,
@@ -33,7 +34,7 @@ const sharedStyles = css`
 `;
 
 export const FrontImgWrapper = styled.div`
-  padding: 5px;
+  padding: 1.5em;
 `;
 
 export const FrontImg = styled.img<Props>`

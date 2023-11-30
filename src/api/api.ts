@@ -27,7 +27,8 @@ export const getPokemonList = async (): Promise<IPokemonDetail[]> => {
 
         //Pick only the properties we want to keep
         const { id, name, sprites } = detailedResponse.data;
-        return { id, name, sprites } as IPokemonDetail;
+        const image = sprites.other.dream_world;
+        return { id, name, image } as IPokemonDetail;
       }
     );
 

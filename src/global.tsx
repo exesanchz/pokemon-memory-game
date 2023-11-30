@@ -1,4 +1,5 @@
 import { createGlobalStyle } from "styled-components";
+import backgroundPokemonImage from "./assets/images/pokemon_forest.jpeg";
 
 const GlobalStyle = createGlobalStyle`
   
@@ -15,17 +16,34 @@ const GlobalStyle = createGlobalStyle`
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
+    background-image: url(${backgroundPokemonImage});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     font-synthesis: none;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    @media (max-width: 600px) {
+      background-attachment: fixed; /* Allow scrolling on mobile view */
+    }
   }
 
   body {
     margin: 0;
     min-width: 320px;
     min-height: 100vh;
+  }
+
+  @font-face {
+  font-family: 'PokemonFont';
+  src: url('src/assets/fonts/Pokemon Solid.ttf') format('truetype');
+  }
+
+  h1 {
+    font-family: 'PokemonFont', sans-serif;
   }
 `;
 

@@ -2,16 +2,22 @@ import { useState, useEffect } from "react";
 import { IPokemonDetail } from "../types/ApiTypes";
 import { getPokemonList } from "../api/api";
 import { PokemonCard } from "../types/CardTypes";
-import { Grid } from "./Root.styles";
+import {
+  Grid,
+  HeaderContainer,
+  PokemonLogo,
+  PokemonTitle,
+} from "./Root.styles";
 import ArrayUtilities from "../utils/ArrayUtilities";
 import Card from "../components/Card/Card";
+import pokemonLogoPng from "../assets/images/pokemon_logo.png";
 
 const createGame = (pokemonList: IPokemonDetail[]): PokemonCard[] =>
   [...pokemonList, ...pokemonList].map((pokemon, i) => ({
     id: `poke-${i}`,
     clickeable: true,
     flipped: false,
-    frontImage: pokemon.sprites.front_default,
+    frontImage: pokemon.image.front_default,
     matchingId:
       i < pokemonList.length
         ? `poke-${i + pokemonList.length}`
@@ -28,26 +34,22 @@ const Root: React.FC = () => {
   const [isFlipping, setIsFlipping] = useState(false);
 
   const [error, setError] = useState<string | null>(null);
-  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     const fetchPokemonList = async () => {
       try {
         const randomPokemons = await getPokemonList();
         setPokemonList(randomPokemons);
-        setRetryCount(0);
         setError(null);
       } catch (error) {
         console.error("Error fetching Pokemon list:", error);
         setError("Error fetching Pokemon list. Please retry.");
-        // Increment retry count and attempt a refetch after a delay
-        setRetryCount((prevRetryCount) => prevRetryCount + 1);
-        setTimeout(fetchPokemonList, 5000 * retryCount); // Retry after 5 seconds
+        setTimeout(fetchPokemonList, 5000); // Retry after 5 seconds
       }
     };
 
     fetchPokemonList();
-  }, [retryCount]);
+  }, []);
 
   useEffect(() => {
     if (pokemonList.length > 0) {
@@ -113,18 +115,26 @@ const Root: React.FC = () => {
   useEffect(() => {
     if (pokemonList.length > 0 && matchedCards === pokemonList.length) {
       setTimeout(() => {
-        window.alert("Congrats! you won benja puto");
+        window.alert("Congrats! you won");
       }, 1000);
     }
   }, [matchedCards, pokemonList]);
 
   return (
-    <Grid>
-      {pokemonCardList &&
-        pokemonCardList.map((pokemon) => (
-          <Card key={pokemon.id} card={pokemon} callback={handleFlip} />
-        ))}
-    </Grid>
+    <>
+      <HeaderContainer>
+        <div>
+          <PokemonLogo src={pokemonLogoPng} alt="pokemon-logo-png" />
+        </div>
+        <PokemonTitle>MEMO GAME</PokemonTitle>
+      </HeaderContainer>
+      <Grid>
+        {pokemonCardList &&
+          pokemonCardList.map((pokemon) => (
+            <Card key={pokemon.id} card={pokemon} callback={handleFlip} />
+          ))}
+      </Grid>
+    </>
   );
 };
 

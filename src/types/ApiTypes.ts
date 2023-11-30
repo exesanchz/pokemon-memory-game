@@ -6,13 +6,9 @@ interface IPokemon {
 interface IPokemonDetail {
   id: number;
   name: string;
-  sprites: {
+  image: {
     front_default: string; // URL pokemon image
   };
 }
 
 export type { IPokemon, IPokemonDetail };
-
-/* export interface PokemonListResponse {
-  results: Pokemon[];
-} */
