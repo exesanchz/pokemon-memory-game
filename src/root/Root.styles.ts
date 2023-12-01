@@ -32,8 +32,14 @@ export const PokemonLogo = styled.img`
 `;
 
 export const PokemonTitle = styled.h1`
-  color: #ffcc00;
-  letter-spacing: 2px;
-  margin: 0;
-  text-shadow: -1px 0 #0075be, 0 4px #0075be, 1px 0 #0075be, 0 -1px #0075be;
+  ${(props) => {
+    const { primaryYellow, primaryBlue } = props.theme.colors;
+
+    return `
+      color: ${primaryYellow};
+      letter-spacing: 2px;
+      margin: 0;
+      text-shadow: -1px 0 ${primaryBlue}, 0 4px ${primaryBlue}, 1px 0 ${primaryBlue}, 0 -1px ${primaryBlue};
+    `;
+  }}
 `;

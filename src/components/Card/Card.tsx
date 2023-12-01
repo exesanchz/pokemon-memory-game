@@ -3,12 +3,12 @@ import { PokemonCard } from "../../types/CardTypes";
 import { BackImg, CardWrapper, FrontImg, FrontImgWrapper } from "./Card.styles";
 import backgroundCard from "../../assets/images/pokemon_back_card.png";
 
-type Props = {
+type CardProps = {
   card: PokemonCard;
   callback: (card: PokemonCard) => void;
 };
 
-const Card: FC<Props> = ({ card, callback }) => {
+const Card: FC<CardProps> = ({ card, callback }) => {
   const handleClick = () => {
     if (card.clickeable) callback(card);
   };

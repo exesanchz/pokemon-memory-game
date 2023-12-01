@@ -1,7 +1,17 @@
 import { createGlobalStyle } from "styled-components";
 import backgroundPokemonImage from "./assets/images/pokemon_forest.jpeg";
 
-const GlobalStyle = createGlobalStyle`
+export const theme = {
+  colors: {
+    primaryBlue: "#0075BE",
+    primaryYellow: "#FFCC00",
+    primaryBeige: "#B4B7C4",
+    primaryRed: "#CC0000",
+    secondaryText: "#000000b5",
+  },
+};
+
+export const GlobalStyle = createGlobalStyle`
   
   :root {
     max-width: 1280px;
@@ -38,13 +48,11 @@ const GlobalStyle = createGlobalStyle`
   }
 
   @font-face {
-  font-family: 'PokemonFont';
-  src: url('src/assets/fonts/Pokemon Solid.ttf') format('truetype');
+    font-family: 'PokemonFont';
+    src: url('src/assets/fonts/Pokemon Solid.ttf') format('truetype');
   }
 
   h1 {
     font-family: 'PokemonFont', sans-serif;
   }
 `;
-
-export default GlobalStyle;

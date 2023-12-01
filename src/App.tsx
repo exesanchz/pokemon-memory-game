@@ -1,5 +1,5 @@
 import Root from "./root/Root";
-import GlobalStyle from "./global";
+import { GlobalStyle } from "./global";
 
 function App() {
   return (

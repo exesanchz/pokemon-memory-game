@@ -11,6 +11,10 @@ import {
 import ArrayUtilities from "../utils/ArrayUtilities";
 import Card from "../components/Card/Card";
 import pokemonLogoPng from "../assets/images/pokemon_logo.png";
+import Modal from "../components/Modal/Modal";
+import { ModalEnum } from "../types/ModalTypes";
+
+const POKEMON_QTY = 4; //We can choose here how many pokemons we play with
 
 const createGame = (pokemonList: IPokemonDetail[]): PokemonCard[] =>
   [...pokemonList, ...pokemonList].map((pokemon, i) => ({
@@ -35,19 +39,25 @@ const Root: React.FC = () => {
 
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchPokemonList = async () => {
-      try {
-        const randomPokemons = await getPokemonList();
-        setPokemonList(randomPokemons);
-        setError(null);
-      } catch (error) {
-        console.error("Error fetching Pokemon list:", error);
-        setError("Error fetching Pokemon list. Please retry.");
-        setTimeout(fetchPokemonList, 5000); // Retry after 5 seconds
-      }
-    };
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalType, setModalType] = useState<undefined | ModalEnum>(undefined);
+  const [modalTitle, setModalTitle] = useState("");
+  const [modalMessage, setModalMessage] = useState("");
 
+  const fetchPokemonList = async () => {
+    try {
+      const randomPokemons = await getPokemonList(POKEMON_QTY);
+      setPokemonList(randomPokemons);
+      setError(null);
+    } catch (error) {
+      console.error("Error fetching Pokemon list:", error);
+      setError(
+        "There was an error trying to load the game. Retrying in 5 seconds..."
+      );
+      setTimeout(fetchPokemonList, 5000); // Retry after 5 seconds
+    }
+  };
+  useEffect(() => {
     fetchPokemonList();
   }, []);
 
@@ -115,10 +125,44 @@ const Root: React.FC = () => {
   useEffect(() => {
     if (pokemonList.length > 0 && matchedCards === pokemonList.length) {
       setTimeout(() => {
-        window.alert("Congrats! you won");
-      }, 1000);
+        openModal(
+          "CONGRATULATIONS",
+          "You finished the game. Shall we play again?",
+          ModalEnum.Victory
+        );
+        setMatchedCards(0);
+      }, 300);
     }
   }, [matchedCards, pokemonList]);
+
+  useEffect(() => {
+    if (error) {
+      openModal("OOPS...something went wrong!", error, ModalEnum.Error);
+    }
+  }, [error]);
+
+  const openModal = (title: string, message: string, type: ModalEnum) => {
+    Promise.all([
+      setIsModalOpen(true),
+      setModalTitle(title),
+      setModalMessage(message),
+      setModalType(type),
+    ]);
+  };
+
+  const cleanModal = () => {
+    Promise.all([
+      setIsModalOpen(false),
+      setModalTitle(""),
+      setModalMessage(""),
+      setModalType(undefined),
+    ]);
+  };
+
+  const victoryCallback = () => {
+    fetchPokemonList();
+    cleanModal();
+  };
 
   return (
     <>
@@ -134,6 +178,13 @@ const Root: React.FC = () => {
             <Card key={pokemon.id} card={pokemon} callback={handleFlip} />
           ))}
       </Grid>
+      <Modal
+        isOpen={isModalOpen}
+        type={modalType}
+        title={modalTitle}
+        message={modalMessage}
+        callback={victoryCallback}
+      />
     </>
   );
 };
