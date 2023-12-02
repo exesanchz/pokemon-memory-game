@@ -35,7 +35,7 @@ const Modal: React.FC<ModalProps> = ({
 
   const handleClose = () => {
     setIsModalOpen(false);
-    if (callback && ModalEnum.Victory) {
+    if (callback) {
       callback();
     }
   };

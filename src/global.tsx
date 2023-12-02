@@ -1,17 +1,6 @@
 import { createGlobalStyle } from "styled-components";
-import backgroundPokemonImage from "./assets/images/pokemon_forest.jpeg";
 
-export const theme = {
-  colors: {
-    primaryBlue: "#0075BE",
-    primaryYellow: "#FFCC00",
-    primaryBeige: "#B4B7C4",
-    primaryRed: "#CC0000",
-    secondaryText: "#000000b5",
-  },
-};
-
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   
   :root {
     max-width: 1280px;
@@ -19,14 +8,15 @@ export const GlobalStyle = createGlobalStyle`
     padding: 2rem;
     text-align: center;
     height: 100%;
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    font-family: 'Haas Grot Text R Web', 'Helvetica Neue', 'Helvetica', 'Arial',
+    'sans-serif';
     line-height: 1.5;
     font-weight: 400;
 
     color-scheme: light dark;
     color: rgba(255, 255, 255, 0.87);
     background-color: #242424;
-    background-image: url(${backgroundPokemonImage});
+    background-image: url(${({ theme }) => theme.images.appBg});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -35,9 +25,12 @@ export const GlobalStyle = createGlobalStyle`
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    transition: all 0.5s ease;
+
 
     @media (max-width: 600px) {
       background-attachment: fixed; /* Allow scrolling on mobile view */
+      margin-bottom: 20px;
     }
   }
 
@@ -56,3 +49,5 @@ export const GlobalStyle = createGlobalStyle`
     font-family: 'PokemonFont', sans-serif;
   }
 `;
+
+export default GlobalStyle;

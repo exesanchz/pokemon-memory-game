@@ -27,7 +27,7 @@ export const HeaderContainer = styled.div`
 
 export const PokemonLogo = styled.img`
   max-width: 100%;
-  margin: 20 20 20 0;
+  margin: 20px 20px 20px 0;
   max-height: 150px;
 `;
 
@@ -42,4 +42,28 @@ export const PokemonTitle = styled.h1`
       text-shadow: -1px 0 ${primaryBlue}, 0 4px ${primaryBlue}, 1px 0 ${primaryBlue}, 0 -1px ${primaryBlue};
     `;
   }}
+`;
+
+export const ToggleButton = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  cursor: pointer;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  border: none;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: ${(props) => props.theme.colors.secondary};
+  &:focus {
+    outline: none;
+  }
+  transition: all 0.5s ease;
+
+  @media (max-width: 600px) {
+    position: relative;
+    height: 40px;
+    width: 40px;
+  }
 `;

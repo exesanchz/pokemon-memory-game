@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, FC } from "react";
 import { IPokemonDetail } from "../types/ApiTypes";
 import { getPokemonList } from "../api/api";
 import { PokemonCard } from "../types/CardTypes";
@@ -7,12 +7,16 @@ import {
   HeaderContainer,
   PokemonLogo,
   PokemonTitle,
+  ToggleButton,
 } from "./Root.styles";
 import ArrayUtilities from "../utils/ArrayUtilities";
 import Card from "../components/Card/Card";
 import pokemonLogoPng from "../assets/images/pokemon_logo.png";
 import Modal from "../components/Modal/Modal";
 import { ModalEnum } from "../types/ModalTypes";
+import { useTheme } from "../hooks/useTheme";
+import { CgSun } from "react-icons/cg";
+import { HiMoon } from "react-icons/hi";
 
 const POKEMON_QTY = 4; //We can choose here how many pokemons we play with
 
@@ -28,7 +32,7 @@ const createGame = (pokemonList: IPokemonDetail[]): PokemonCard[] =>
         : `poke-${i - pokemonList.length}`,
   }));
 
-const Root: React.FC = () => {
+const Root: FC = () => {
   const [pokemonList, setPokemonList] = useState<IPokemonDetail[]>([]);
   const [pokemonCardList, setPokemonCardList] = useState<PokemonCard[]>([]);
   const [flippedCard, setFlippedCard] = useState<PokemonCard | undefined>(
@@ -44,6 +48,8 @@ const Root: React.FC = () => {
   const [modalTitle, setModalTitle] = useState("");
   const [modalMessage, setModalMessage] = useState("");
 
+  const { currentTheme, toggleTheme } = useTheme();
+
   const fetchPokemonList = async () => {
     try {
       const randomPokemons = await getPokemonList(POKEMON_QTY);
@@ -57,6 +63,7 @@ const Root: React.FC = () => {
       setTimeout(fetchPokemonList, 5000); // Retry after 5 seconds
     }
   };
+
   useEffect(() => {
     fetchPokemonList();
   }, []);
@@ -126,18 +133,17 @@ const Root: React.FC = () => {
     if (pokemonList.length > 0 && matchedCards === pokemonList.length) {
       setTimeout(() => {
         openModal(
-          "CONGRATULATIONS",
-          "You finished the game. Shall we play again?",
+          "CONGRATULATIONS!",
+          "You won the game! Shall we play again?",
           ModalEnum.Victory
         );
-        setMatchedCards(0);
       }, 300);
     }
   }, [matchedCards, pokemonList]);
 
   useEffect(() => {
     if (error) {
-      openModal("OOPS...something went wrong!", error, ModalEnum.Error);
+      openModal("OOPS...Something went wrong!", error, ModalEnum.Error);
     }
   }, [error]);
 
@@ -156,16 +162,24 @@ const Root: React.FC = () => {
       setModalTitle(""),
       setModalMessage(""),
       setModalType(undefined),
+      setError(null),
     ]);
   };
 
-  const victoryCallback = () => {
-    fetchPokemonList();
+  const modalCallback = () => {
+    if (pokemonList.length > 0 && matchedCards === pokemonList.length) {
+      setMatchedCards(0);
+      fetchPokemonList();
+    }
     cleanModal();
   };
 
+  const icon =
+    currentTheme === "light" ? <HiMoon size={40} /> : <CgSun size={25} />;
+
   return (
     <>
+      <ToggleButton onClick={toggleTheme}>{icon}</ToggleButton>
       <HeaderContainer>
         <div>
           <PokemonLogo src={pokemonLogoPng} alt="pokemon-logo-png" />
@@ -183,7 +197,7 @@ const Root: React.FC = () => {
         type={modalType}
         title={modalTitle}
         message={modalMessage}
-        callback={victoryCallback}
+        callback={modalCallback}
       />
     </>
   );

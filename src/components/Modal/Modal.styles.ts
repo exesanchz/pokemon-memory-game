@@ -15,7 +15,7 @@ export const ModalWrapper = styled.div`
 `;
 
 export const ModalContent = styled.div`
-  background: #ffffff;
+  background: ${({ theme }) => theme.colors.primary};
   border-radius: 20px;
   max-width: 500px;
   width: 100%;
@@ -51,8 +51,6 @@ const sharedTextStyles = css`
   margin: 5px;
   max-width: 250px;
   text-align: left;
-  font-family: Haas Grot Text R Web, Helvetica Neue, Helvetica, Arial,
-    sans-serif; //check font use here
 
   @media (max-width: 600px) {
     text-align: center;
@@ -63,7 +61,7 @@ export const ModalTitle = styled.h2<ModalProps>`
   ${sharedTextStyles}
   color: ${(props) =>
     props.type === ModalEnum.Error
-      ? props.theme.colors.primaryRed
+      ? props.theme.colors.primaryError
       : props.theme.colors.primaryYellow};
 
   @media (max-width: 600px) {
@@ -73,7 +71,7 @@ export const ModalTitle = styled.h2<ModalProps>`
 
 export const ModalMessage = styled.p`
   ${sharedTextStyles}
-  color: ${(props) => props.theme.colors.secondaryText}
+  color: ${({ theme }) => theme.colors.secondary};
 `;
 
 export const PokemonImage = styled.img`
@@ -89,14 +87,12 @@ export const ModalButton = styled.button`
   min-height: 20px;
   margin: 10px 0 0 5px;
 
-  background-color: rgba(51, 51, 51, 0.05);
+  background-color: ${({ theme }) => theme.colors.primaryButton};
   border-radius: 10px;
   border-width: 0;
-  color: #333333;
+  color: ${({ theme }) => theme.colors.ButonText};
   cursor: pointer;
   display: inline-block;
-  font-family: Haas Grot Text R Web, Helvetica Neue, Helvetica, Arial,
-    sans-serif;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
