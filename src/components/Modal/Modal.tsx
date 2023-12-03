@@ -8,7 +8,7 @@ import {
   ModalColumn,
   ModalButton,
 } from "./Modal.styles";
-import { ModalEnum } from "../../types/ModalTypes";
+import { ModalEnum } from "../../types/Modal";
 import victoryImage from "../../assets/images/pikachu-victory.png";
 import errorImage from "../../assets/images/magikarp-error.png";
 

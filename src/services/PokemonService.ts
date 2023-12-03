@@ -1,21 +1,17 @@
-import axios from "axios";
-import { IPokemon, IPokemonDetail } from "../types/ApiTypes";
+import { IPokemon, IPokemonDetail } from "../types/Api";
+import api from "../utils/Axios";
 
-const baseURL = "https://pokeapi.co/api/v2";
-
-const api = axios.create({
-  baseURL,
-});
+const POKEMON_LIMIT = 151; // Reference to the initial 151 classic pokemons
 
 export const getPokemonList = async (
   pokemonQty: number
 ): Promise<IPokemonDetail[]> => {
   try {
     //Get an initial pokemon list without details
-    const response = await api.get("/pokemon?limit=151"); // Reference to the initial 151 classic pokemons
+    const response = await api.get(`/pokemon?limit=${POKEMON_LIMIT}`);
     const pokemonList: IPokemon[] = response.data.results;
 
-    //Pick 4 random pokemons
+    //Pick random pokemons
     const randomPokemons: IPokemon[] = [];
     for (let i = 0; i < pokemonQty; i++) {
       const randomIndex = Math.floor(Math.random() * pokemonList.length);
@@ -28,15 +24,14 @@ export const getPokemonList = async (
         const detailedResponse = await api.get(pokemon.url);
 
         //Pick only the properties we want to keep
-        const { id, name, sprites } = detailedResponse.data;
-        const image = sprites.other.dream_world;
-        return { id, name, image } as IPokemonDetail;
+        const { id, name, sprites, types } = detailedResponse.data;
+        return { id, name, sprites, types } as IPokemonDetail;
       }
     );
 
     return Promise.all(detailedPokemonList);
   } catch (error) {
-    console.error("Error fetching random Pokemon list:", error);
+    console.error("Error fetching random Pokemon list:", error); //Works as a logger
     throw error;
   }
 };

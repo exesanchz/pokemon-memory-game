@@ -4,6 +4,7 @@ type PokemonCard = {
   flipped: boolean;
   frontImage: string;
   matchingId: string;
+  types: string[];
 };
 
 export type { PokemonCard };

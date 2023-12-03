@@ -1,7 +1,7 @@
 import { useState, useEffect, FC } from "react";
-import { IPokemonDetail } from "../types/ApiTypes";
-import { getPokemonList } from "../api/api";
-import { PokemonCard } from "../types/CardTypes";
+import { IPokemonDetail } from "../types/Api";
+import { getPokemonList } from "../services/PokemonService";
+import { PokemonCard } from "../types/Card";
 import {
   Grid,
   HeaderContainer,
@@ -9,28 +9,17 @@ import {
   PokemonTitle,
   ToggleButton,
 } from "./Root.styles";
-import ArrayUtilities from "../utils/ArrayUtilities";
+import ArrayUtilities from "../utils/Array";
 import Card from "../components/Card/Card";
 import pokemonLogoPng from "../assets/images/pokemon_logo.png";
 import Modal from "../components/Modal/Modal";
-import { ModalEnum } from "../types/ModalTypes";
+import { ModalEnum } from "../types/Modal";
 import { useTheme } from "../hooks/useTheme";
 import { CgSun } from "react-icons/cg";
 import { HiMoon } from "react-icons/hi";
+import Game from "../utils/Game";
 
 const POKEMON_QTY = 4; //We can choose here how many pokemons we play with
-
-const createGame = (pokemonList: IPokemonDetail[]): PokemonCard[] =>
-  [...pokemonList, ...pokemonList].map((pokemon, i) => ({
-    id: `poke-${i}`,
-    clickeable: true,
-    flipped: false,
-    frontImage: pokemon.image.front_default,
-    matchingId:
-      i < pokemonList.length
-        ? `poke-${i + pokemonList.length}`
-        : `poke-${i - pokemonList.length}`,
-  }));
 
 const Root: FC = () => {
   const [pokemonList, setPokemonList] = useState<IPokemonDetail[]>([]);
@@ -56,21 +45,17 @@ const Root: FC = () => {
       setPokemonList(randomPokemons);
       setError(null);
     } catch (error) {
-      console.error("Error fetching Pokemon list:", error);
-      setError(
-        "There was an error trying to load the game. Retrying in 5 seconds..."
-      );
-      setTimeout(fetchPokemonList, 5000); // Retry after 5 seconds
+      console.error("Error fetching Pokemon list:", error); //Works as a logger, will be removed in real case
+      setError("There was an error trying to load the game.");
     }
   };
-
   useEffect(() => {
     fetchPokemonList();
   }, []);
 
   useEffect(() => {
     if (pokemonList.length > 0) {
-      setPokemonCardList(ArrayUtilities.shuffle(createGame(pokemonList)));
+      setPokemonCardList(ArrayUtilities.shuffle(Game.create(pokemonList)));
     }
   }, [pokemonList]);
 
@@ -166,10 +151,10 @@ const Root: FC = () => {
     ]);
   };
 
-  const modalCallback = () => {
+  const modalCallback = async () => {
     if (pokemonList.length > 0 && matchedCards === pokemonList.length) {
       setMatchedCards(0);
-      fetchPokemonList();
+      await fetchPokemonList();
     }
     cleanModal();
   };

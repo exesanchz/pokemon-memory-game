@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { ModalEnum } from "../../types/ModalTypes";
+import { ModalEnum } from "../../types/Modal";
 
 export const ModalWrapper = styled.div`
   position: fixed;
@@ -59,10 +59,10 @@ const sharedTextStyles = css`
 
 export const ModalTitle = styled.h2<ModalProps>`
   ${sharedTextStyles}
-  color: ${(props) =>
-    props.type === ModalEnum.Error
-      ? props.theme.colors.primaryError
-      : props.theme.colors.primaryYellow};
+  color: ${({ theme, type }) =>
+    type === ModalEnum.Error
+      ? theme.colors.primaryError
+      : theme.colors.primaryYellow};
 
   @media (max-width: 600px) {
     font-size: 20px;

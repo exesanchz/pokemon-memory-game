@@ -1,6 +1,13 @@
 import { FC } from "react";
-import { PokemonCard } from "../../types/CardTypes";
-import { BackImg, CardWrapper, FrontImg, FrontImgWrapper } from "./Card.styles";
+import { PokemonCard } from "../../types/Card";
+import {
+  BackImg,
+  CardWrapper,
+  FrontImg,
+  FrontImgWrapper,
+  TypeBackground,
+  TypeWrapper,
+} from "./Card.styles";
 import backgroundCard from "../../assets/images/pokemon_back_card.png";
 
 type CardProps = {
@@ -13,8 +20,11 @@ const Card: FC<CardProps> = ({ card, callback }) => {
     if (card.clickeable) callback(card);
   };
 
+  const { types } = card;
+  const typesBg = types.length === 2 ? types : [types[0], types[0]];
+
   return (
-    <CardWrapper onClick={handleClick}>
+    <CardWrapper onClick={handleClick} types={typesBg}>
       <FrontImgWrapper>
         <FrontImg
           flipped={card.flipped}
@@ -27,6 +37,13 @@ const Card: FC<CardProps> = ({ card, callback }) => {
         src={backgroundCard}
         alt="back-memory-card"
       />
+      <TypeWrapper>
+        {types.map((type) => (
+          <TypeBackground key={`${card.id}-${type}`} type={type}>
+            <img src={`${type}.png`} alt="pokemon-type" />
+          </TypeBackground>
+        ))}
+      </TypeWrapper>
     </CardWrapper>
   );
 };

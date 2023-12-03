@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Grid = styled.div`
   display: grid;
-  gap: 1rem;
+  gap: 2rem;
   justify-content: center;
 
   @media (min-width: 300px) {
@@ -27,7 +27,7 @@ export const HeaderContainer = styled.div`
 
 export const PokemonLogo = styled.img`
   max-width: 100%;
-  margin: 20px 20px 20px 0;
+  margin: 0 20px 0 20pox;
   max-height: 150px;
 `;
 
@@ -55,7 +55,7 @@ export const ToggleButton = styled.button`
   border-radius: 50%;
   border: none;
   background-color: ${({ theme }) => theme.colors.primary};
-  color: ${(props) => props.theme.colors.secondary};
+  color: ${({ theme }) => theme.colors.secondary};
   &:focus {
     outline: none;
   }
