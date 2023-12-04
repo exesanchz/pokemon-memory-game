@@ -1,34 +1,62 @@
+# Pokemon Memory Game
+
 # React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the Pokémon Memory Card Game! This project is a fun and interactive memory card game featuring Pokémon. The game extracts the names and photos of at least 4 random Pokémon from the Poke API and challenges players to uncover and pair them. The goal is to match all the cards and signal victory!
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- [Description](#description)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Credits](#credits)
 
-## Expanding the ESLint configuration
+## Description
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+The Pokémon Memory Card Game is a memory-based game where players can enjoy uncovering and matching Pokémon cards from the Kanto-Region (classics 151 pokemons). The game fetches data from the Poke API to randomly select at least 4 Pokémon, presenting their names, types and images for players to memorize and match.
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
-    tsconfigRootDir: __dirname,
-  },
-};
+- Randomly selects at least 4 Pokémon from the Poke API.
+- Presents Pokémon Info in Cards.
+- Set a Design based on Pokemon Types.
+- Dark mode toggle.
+- Action sound effects.
+- View basic details of each Pokémon.
+- Responsive design.
+
+## Installation
+
+Follow these steps to install and run the Pokémon Memory Card Game on your local machine:
+
+```bash
+# Clone the repository
+git clone https://github.com/exesanchz/pokemon-memory-game.git
+
+# Navigate to the project folder
+cd pokemon-memory-card-game
+
+# Install dependencies
+npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Usage
+
+To start the Pokémon Memory Card Game, run the following command and visit http://localhost:3000 (or the port number assigned) in your browser:
+
+# Run the application
+
+npm run dev
+
+Have fun playing and matching Pokémon cards!
 
 ## Credits
 
-https://github.com/duiker101/pokemon-type-svg-icons
+Special thanks to the following resources:
+
+- https://pokeapi.co/
+- https://github.com/duiker101/pokemon-type-svg-icons
+- https://freesound.org/
+
+Feel free to check out and support these amazing projects!

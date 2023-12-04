@@ -18,6 +18,7 @@ import { useTheme } from "../hooks/useTheme";
 import { CgSun } from "react-icons/cg";
 import { HiMoon } from "react-icons/hi";
 import GameUtilities from "../utils/Game";
+import SoundsUtilities from "../utils/Sounds";
 
 const POKEMON_QTY = 4; //We can choose here how many pokemons we play with
 
@@ -66,6 +67,7 @@ const Root: FC = () => {
     if (isFlipping) {
       return;
     }
+    SoundsUtilities.playFlip();
     setIsFlipping(true);
 
     setPokemonCardList((prev) =>
@@ -111,12 +113,16 @@ const Root: FC = () => {
           )
         );
         setIsFlipping(false);
+        SoundsUtilities.playNotMatch();
       }, 1000),
       setFlippedCard(undefined),
     ]);
   };
 
   useEffect(() => {
+    if (matchedCards > 0 && matchedCards < pokemonList.length) {
+      SoundsUtilities.playMatch();
+    }
     if (pokemonList.length > 0 && matchedCards === pokemonList.length) {
       setTimeout(() => {
         openModal(
@@ -124,9 +130,11 @@ const Root: FC = () => {
           "You won the game! Shall we play again?",
           ModalEnum.Victory
         );
+        SoundsUtilities.playVictory();
       }, 300);
     }
-  }, [matchedCards, pokemonList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [matchedCards]);
 
   useEffect(() => {
     if (error) {
