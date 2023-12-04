@@ -1,4 +1,4 @@
-import { useState, useEffect, FC } from "react";
+import { useState, useEffect, FC, useCallback } from "react";
 import { IPokemonDetail } from "../types/Api";
 import { getPokemonList } from "../services/PokemonService";
 import { PokemonCard } from "../types/Card";
@@ -40,7 +40,7 @@ const Root: FC = () => {
 
   const { currentTheme, toggleTheme } = useTheme();
 
-  const fetchPokemonList = async () => {
+  const fetchPokemonList = useCallback(async () => {
     try {
       const randomPokemons = await getPokemonList(POKEMON_QTY);
       setPokemonList(randomPokemons);
@@ -49,10 +49,11 @@ const Root: FC = () => {
       console.error("Error fetching Pokemon list:", error); //Works as a logger, will be removed in real case
       setError("There was an error trying to load the game.");
     }
-  };
+  }, []);
+
   useEffect(() => {
     fetchPokemonList();
-  }, []);
+  }, [fetchPokemonList]);
 
   useEffect(() => {
     if (pokemonList.length > 0) {
