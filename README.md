@@ -14,16 +14,15 @@ Welcome to the Pokémon Memory Card Game! This project is a fun and interactive 
 
 ## Description
 
-The Pokémon Memory Card Game is a memory-based game where players can enjoy uncovering and matching Pokémon cards from the Kanto-Region (classics 151 pokemons). The game fetches data from the Poke API to randomly select at least 4 Pokémon, presenting their names, types and images for players to memorize and match.
+The Pokémon Memory Card Game is a memory-based game where players can enjoy uncovering and matching Pokémon cards from the Kanto-Region (classics 151 Pokemons). The game fetches data from the Poke API to randomly select at least 4 Pokémon, presenting their names, types, and images for players to memorize and match.
 
 ## Features
 
 - Randomly selects at least 4 Pokémon from the Poke API.
-- Presents Pokémon Info in Cards.
+- Presents Pokémon basic info in Cards.
 - Set a Design based on Pokemon Types.
 - Dark mode toggle.
 - Action sound effects.
-- View basic details of each Pokémon.
 - Responsive design.
 
 ## Installation
@@ -45,10 +44,10 @@ npm install
 
 To start the Pokémon Memory Card Game, run the following command and visit http://localhost:3000 (or the port number assigned) in your browser:
 
+```bash
 # Run the application
-
 npm run dev
-
+```
 Have fun playing and matching Pokémon cards!
 
 ## Credits
