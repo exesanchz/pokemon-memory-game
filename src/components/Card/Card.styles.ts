@@ -20,11 +20,37 @@ export const CardWrapper = styled.div<CardWrapperProps>`
     justify-content: flex-end;
     border-radius: 10px;
 
-  .front.flipped {
-    z-index: 1;
-    transform: rotateY(180deg);
-  }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .front.flipped {
+      z-index: 1;
+      transform: rotateY(180deg);
+    }
+
+    @media (min-width: 600px) {
+      &:hover {
+        transform: scale(1.1);
+       }
+   
+    }
+
+    @media (max-width: 600px) {
+      max-height: 190px;
+    }
+  
     `}
+`;
+
+export const CardTitle = styled.h2`
+  margin: 10 0 0 0;
+  font-family: "Press Start 2P", cursive;
+  font-size: 0.9em;
+  color: ${({ theme }) => theme.colors.secondary};
+  text-align: center;
+  z-index: 2;
 `;
 
 type ImgProps = {

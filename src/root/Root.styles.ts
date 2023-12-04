@@ -2,19 +2,21 @@ import styled from "styled-components";
 
 export const Grid = styled.div`
   display: grid;
-  gap: 2rem;
+  gap: 1.5em;
   justify-content: center;
+  justify-items: center;
+  margin-bottom: 20px;
 
   @media (min-width: 300px) {
-    grid-template-columns: repeat(auto-fit, minmax(120px, 0.2fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   }
 
   @media (min-width: 400px) {
-    grid-template-columns: repeat(2, minmax(120px, 0.15fr));
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
   }
 
-  @media (min-width: 700px) {
-    grid-template-columns: repeat(4, minmax(120px, 0.15fr));
+  @media (min-width: 800px) {
+    grid-template-columns: repeat(4, minmax(120px, 200px));
   }
 `;
 

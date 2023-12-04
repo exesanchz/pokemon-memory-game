@@ -17,7 +17,7 @@ import { ModalEnum } from "../types/Modal";
 import { useTheme } from "../hooks/useTheme";
 import { CgSun } from "react-icons/cg";
 import { HiMoon } from "react-icons/hi";
-import Game from "../utils/Game";
+import GameUtilities from "../utils/Game";
 
 const POKEMON_QTY = 4; //We can choose here how many pokemons we play with
 
@@ -55,7 +55,9 @@ const Root: FC = () => {
 
   useEffect(() => {
     if (pokemonList.length > 0) {
-      setPokemonCardList(ArrayUtilities.shuffle(Game.create(pokemonList)));
+      setPokemonCardList(
+        ArrayUtilities.shuffle(GameUtilities.create(pokemonList))
+      );
     }
   }, [pokemonList]);
 

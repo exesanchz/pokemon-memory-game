@@ -26,12 +26,9 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     transition: all 0.5s ease;
+    background-attachment: fixed; 
 
 
-    @media (max-width: 600px) {
-      background-attachment: fixed; /* Allow scrolling on mobile view */
-      margin-bottom: 20px;
-    }
   }
 
   body {

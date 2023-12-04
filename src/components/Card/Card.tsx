@@ -2,6 +2,7 @@ import { FC } from "react";
 import { PokemonCard } from "../../types/Card";
 import {
   BackImg,
+  CardTitle,
   CardWrapper,
   FrontImg,
   FrontImgWrapper,
@@ -25,6 +26,7 @@ const Card: FC<CardProps> = ({ card, callback }) => {
 
   return (
     <CardWrapper onClick={handleClick} types={typesBg}>
+      <CardTitle>{card.name}</CardTitle>
       <FrontImgWrapper>
         <FrontImg
           flipped={card.flipped}
